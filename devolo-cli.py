@@ -64,5 +64,25 @@ def reboot(devolo_ip):
     r = sendReboot(devolo_ip, csrf_token)
     print(r)
 
+@cli.command()
+@click.argument("devolo_ip")
+@click.argument("syslog_dest_ip")
+@click.option("--port", default=20113, type=int, help="Remote syslog port")
+def syslog(devolo_ip, syslog_dest_ip, port):
+    """EXPERIMENTAL: enable syslog on device, does not yet work, returns 403"""
+    asset_data = getData(devolo_ip)
+    csrf_token = asset_data['CSRFTOKEN']
+    data = {
+        'SYSLOG.GENERAL.ENABLE': 'YES',
+        'SYSLOG.OUTPUT.IP': syslog_dest_ip,
+        'SYSLOG.OUTPUT.PORT': port,
+        'SYSLOG.OUTPUT.MODE': 'udp',
+        'SYSLOG.GENERAL.OUTPUT_REDIRECTION:': 'mandangastyle',
+        '.CSRFTOKEN': csrf_token,
+    }
+    r = requests.post(f'http://{devolo_ip}/customization/rsyslog', data=data, verify=False)
+    print(r)
+
+
 if __name__ == "__main__":
     cli()
