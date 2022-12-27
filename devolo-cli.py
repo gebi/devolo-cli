@@ -60,6 +60,7 @@ def reboot(devolo_ip):
     """Reboot devolo powerlan adapter"""
     asset_data = getData(devolo_ip)
     csrf_token = asset_data['CSRFTOKEN']
+    # FIXME - check uptime before and after to check for proper reboot?
     r = sendReboot(devolo_ip, csrf_token)
     print(r)
 
