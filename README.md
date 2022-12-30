@@ -1,6 +1,30 @@
 # devolo-cli
 Small cli for devolo powerlan adapters
 
+# Usage
+
+I wrote this tool because my Devolo Magic 2 Lan adapters constantly "lock up" in a way no data is transmitted anymore or only with *huge* latencies (like >1min ttl) making the connection unusable, but starting to work again without any issues after just rebooting one of the adapters.
+
+This seems like a SW problem on devolos side which is so far still unfixed...
+
+I have this script running in the background:
+
+`while true; do ping -q 192.168.0.1 -c 3 -W 5 &>/dev/null || (echo -n "### Reboot - "; date; devolo-cli reboot 192.168.0.17; sleep 30); sleep 3 || break; done`
+
+And in more readable form:
+
+```sh
+while true; do
+  ping -q 192.168.0.1 -c 3 -W 5 &>/dev/null || \
+  (
+    echo -n "### Reboot - "; date
+    devolo-cli reboot 192.168.0.17
+    sleep 30
+  )
+  sleep 3 || break
+done
+```
+
 # Features
 
 - reboot powerlan adapter
