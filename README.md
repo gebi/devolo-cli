@@ -1,6 +1,10 @@
 # devolo-cli
 Small cli for devolo powerlan adapters
 
+You are most probably looking for https://github.com/2Fake/devolo_plc_api
+
+_This is only a small hack to make my devolo PLC adapters rebooting because devolo reliable messes up their firmware with PLCs that have asymetrically bad connection. Together with devolos completely messed up network package buffering this makes a reboot faster than waiting for the devolo PLCs to recover to fix connection problems..._
+
 # Usage
 
 I wrote this tool because my Devolo Magic 2 Lan adapters constantly "lock up" in a way no data is transmitted anymore or only with *huge* latencies (like >1min ttl) making the connection unusable, but starting to work again without any issues after just rebooting one of the adapters.
